@@ -259,6 +259,64 @@ INSERT INTO `worldbosses` VALUES (1,'Anemo Hypostasis','Hypostases',1,1),(2,'Cry
 UNLOCK TABLES;
 
 --
+-- Dumping events for database 'wikip'
+--
+
+--
+-- Dumping routines for database 'wikip'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `AddNewCharacter` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddNewCharacter`(
+    IN _Name VARCHAR(255),
+    IN _Model_size VARCHAR(255),
+    IN _WeaponTypes_id INT,
+    IN _Elements_ID INT,
+    IN _Regions_ID INT,
+    IN _Rarity_ID INT
+)
+BEGIN
+    IF NOT EXISTS (SELECT * FROM Characters WHERE Name = _Name) THEN
+        INSERT INTO Characters (Name,Model_size,WeaponTypes_id, Elements_ID, Regions_ID, Rarity_ID)
+        VALUES (_Name, _Model_size, _WeaponTypes_id, _Elements_ID, _Regions_ID, _Rarity_ID);
+    ELSE
+        SELECT 'Character already exists.' AS ErrorMessage;
+    END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `CountCharacters` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CountCharacters`(OUT charactersCount INT)
+BEGIN
+    SELECT COUNT(*) INTO charactersCount FROM Characters;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
 -- Final view structure for view `characterinfo`
 --
 
@@ -285,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-31  9:28:32
+-- Dump completed on 2024-05-31  9:49:27
