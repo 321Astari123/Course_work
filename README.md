@@ -1,5 +1,5 @@
 
-#Курсовая работа по теме "Разработка базы данных для энциклопедии по игре Genshin Impact"
+Курсовая работа по теме "Разработка базы данных для энциклопедии по игре Genshin Impact"
 
 ![Erd1-диаграмма](https://github.com/321Astari123/Course_work/assets/68735994/df3e5aed-417d-4fe9-b636-ec4a904959d4)
 
@@ -12,7 +12,7 @@ SELECT * FROM Characters WHERE Elements_id = 1;
 
 **2. Вывести список всего оружия определённой редкости**
 ```sql
-SELECT * FROM Weapons WHERE Rarity_ID = 2;
+SELECT * FROM Weapons WHERE Rarity_ID = 4;
 ```
 
 **3. Вывести список всех персонажей из определённого региона**
