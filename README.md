@@ -7,17 +7,24 @@
 ## Типовые Запросы
 **1. Вывести список всех персонажей определённого элемента**
 ```sql
-SELECT * FROM Characters WHERE Elements_id = 1;
+SELECT * FROM Characters
+join elements ON characters.Elements_id = elements.id
+WHERE Elements.name = 'Anemo';
 ```
 
-**2. Вывести список всего оружия определённой редкости**
+**2. Вывести список всего оружия определённого типа**
 ```sql
-SELECT * FROM Weapons WHERE Rarity_ID = 4;
+SELECT * FROM weapons
+join weapontypes ON weapons.WeaponTypes_id = weapontypes.id
+WHERE weapontypes.name  = 'Polearm';
+
 ```
 
 **3. Вывести список всех персонажей из определённого региона**
 ```sql
-SELECT * FROM Characters WHERE Regions_id = 4;
+SELECT * FROM Characters
+join regions ON characters.regions_id = regions.id
+WHERE regions.name = 'Inazuma';
 ```
 **4. Вывести список еды которая усиляет урон от атак**
 ```sql
@@ -69,3 +76,7 @@ select @charactersCount;
 SELECT * FROM CharacterInfo
 ```
 > Это представление выводит всю информацию по персонажам
+
+## Триггеры
+1. **`characters_insert`** осуществляет свою деятельность после добавления новой записи в таблицу `characters`, а именно, создание новой записи в столбец `date` с указанием времени и даты создания информационной записи
+2. **`characters_update`** осуществляет свою деятельность после обновления уже существующих данных в таблице `characters`, а именно, создание новой записи в столбец `date` с указанием времени и даты обновления информационной записи
