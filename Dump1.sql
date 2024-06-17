@@ -48,6 +48,7 @@ CREATE TABLE `characters` (
   `Elements_id` int unsigned NOT NULL,
   `Regions_id` int unsigned NOT NULL,
   `Rarity_id` int unsigned NOT NULL,
+  `Date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Character_WeaponTypes1_idx` (`WeaponTypes_id`),
   KEY `fk_Character_Elements1_idx` (`Elements_id`),
@@ -57,7 +58,7 @@ CREATE TABLE `characters` (
   CONSTRAINT `fk_Character_Rarity1` FOREIGN KEY (`Rarity_id`) REFERENCES `rarity` (`id`),
   CONSTRAINT `fk_Character_Regions1` FOREIGN KEY (`Regions_id`) REFERENCES `regions` (`id`),
   CONSTRAINT `fk_Character_WeaponTypes1` FOREIGN KEY (`WeaponTypes_id`) REFERENCES `weapontypes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,9 +67,43 @@ CREATE TABLE `characters` (
 
 LOCK TABLES `characters` WRITE;
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
-INSERT INTO `characters` VALUES (1,'Eula','Tall Female',2,5,1,5),(2,'Bennett','Medium Male',1,4,1,4),(3,'Hu Tao','Medium Female',5,4,2,5),(4,'Ningguang','Tall Female',4,2,2,4),(5,'	Kamisato Ayato','Tall Male',1,6,3,5),(6,'Sayu','Short Female',2,1,3,4),(7,'Tighnari','Medium Male',3,7,4,5),(8,'Faruzan','Medium Female',3,1,4,4),(9,'Wriothesley','Tall Male',4,5,5,5),(10,'	Chevreuse','Medium Female',5,4,5,4),(11,'Diluc','Tall Male',2,4,1,5);
+INSERT INTO `characters` VALUES (1,'Eula','Tall Female',2,5,1,5,'2024-06-12 16:06:06'),(2,'Bennett','Medium Male',1,4,1,4,'2024-06-12 16:05:57'),(3,'Hu Tao','Medium Female',5,4,2,5,'2024-06-12 16:06:20'),(4,'Ningguang','Tall Female',4,2,2,4,'2024-06-12 16:06:25'),(5,'	Kamisato Ayato','Tall Male',1,6,3,5,'2024-06-12 16:08:22'),(6,'Sayu','Short Female',2,1,3,4,'2024-06-12 16:08:22'),(7,'Tighnari','Medium Male',3,7,4,5,'2024-06-12 16:08:22'),(8,'Faruzan','Medium Female',3,1,4,4,'2024-06-12 16:08:22'),(9,'Wriothesley','Tall Male',4,5,5,5,'2024-06-12 16:08:22'),(10,'	Chevreuse','Medium Female',5,4,5,4,'2024-06-12 16:08:22'),(11,'Diluc','Tall Male',2,4,1,5,'2024-06-12 16:08:22'),(12,'Xiao','Medium Male',5,1,2,5,'2024-06-12 16:08:22'),(13,'Kazuha','Medium Male',1,1,3,5,'2024-06-17 21:30:31');
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `characters_insert` BEFORE INSERT ON `characters` FOR EACH ROW BEGIN
+    SET NEW.date = NOW();
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `characters_update` BEFORE UPDATE ON `characters` FOR EACH ROW BEGIN
+    SET NEW.date = NOW();
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `elements`
@@ -265,6 +300,37 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'wikip'
 --
+/*!50003 DROP FUNCTION IF EXISTS `FindMostCommonElement` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `FindMostCommonElement`() RETURNS varchar(255) CHARSET utf8mb3
+    NO SQL
+BEGIN DECLARE mostCommonElement VARCHAR(255); DECLARE elementCount INT;
+
+SELECT e.Name, subquery.ElementCount INTO mostCommonElement, elementCount
+FROM (
+    SELECT c.Elements_id, COUNT(*) AS ElementCount
+    FROM characters c
+    GROUP BY c.Elements_id
+    ORDER BY ElementCount DESC
+    LIMIT 1
+) AS subquery
+JOIN Elements e ON subquery.Elements_id = e.ID;
+
+RETURN CONCAT(mostCommonElement, ' (', elementCount, ' characters)');
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `AddNewCharacter` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -343,4 +409,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-31  9:49:27
+-- Dump completed on 2024-06-17 23:48:41
