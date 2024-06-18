@@ -64,6 +64,7 @@ GRANT ALL PRIVILEGES ON wikip.* To Admin;
 ``` sql
 CALL AddNewCharacter('Cyno', 'Medium Male', 5, 3, 4, 5);
 ```
+> Процедура добавит в таблицу characters имя `Cyno`, тип модели `Medium Male`, id типа используемого оружия `5`, id используемого элемента `3`, id региона `4` и id редкости `5`
 2. Процедура подсчёта общего количества персонажей в таблице
 ```sql
 set @charactersCount = 0;
