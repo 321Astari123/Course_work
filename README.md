@@ -83,3 +83,18 @@ SELECT * FROM CharacterInfo
 2. **`characters_update`** осуществляет свою деятельность после обновления уже существующих данных в таблице `characters`, а именно, создание новой записи в столбец `date` с указанием времени и даты обновления информационной записи
 ## Пользовательская функция 
 1. **`FindMostCommonElement `** принимает строку Elements и возвращает наиболее популярный элемент из представленных с его количеством
+## Транзакция.
+``` sql
+START TRANSACTION;
+
+INSERT INTO Characters (Name, Model_size, WeaponTypes_id, Elements_ID, Regions_ID, Rarity_ID) 
+VALUES ('Amber', 'Medium Female',3, 4, 1, 5);
+
+SET @newCharacterID = LAST_INSERT_ID();
+
+INSERT INTO Weapons (name, rarity_id, weaponTypes_id) 
+VALUES ('Favonius WarBow', 4, 3);
+
+COMMIT;
+```
+> Эта транзакция осуществляет добавление персонажа в таблицу Characters по его входным данным, получает его id, а также добавляет предпочитаемое им оружие
